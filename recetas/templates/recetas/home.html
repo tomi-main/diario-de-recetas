@@ -1,0 +1,22 @@
+{% extends 'recetas/base.html' %}
+{% block content %}
+<h2 class="mb-4">Últimas recetas</h2>
+<div class="row">
+    {% for receta in recetas %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if receta.imagen %}
+            <img src="{{ receta.imagen.url }}" class="card-img-top" style="height:200px;object-fit:cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ receta.titulo }}</h5>
+                <p class="card-text text-muted">{{ receta.categoria }} · {{ receta.tiempo_preparacion }} min</p>
+                <a href="{% url 'receta_detalle' receta.pk %}" class="btn btn-primary">Ver receta</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Todavía no hay recetas cargadas.</p>
+    {% endfor %}
+</div>
+{% endblock %}
