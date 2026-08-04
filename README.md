@@ -166,7 +166,17 @@ repositorio de GitHub, configurando las variables de entorno DEBUG=False,
 
 ALLOWED\_HOSTS y ejecutando collectstatic durante el build".)\*
 
+### ⚠️ Nota sobre las imágenes en producción
 
+El plan gratuito de Render no incluye almacenamiento persistente para archivos 
+subidos por los usuarios (carpeta `media/`). Esto significa que las imágenes 
+cargadas en las recetas se pierden cada vez que el servicio se reinicia 
+(por ejemplo, tras un período de inactividad o un nuevo despliegue).
+
+Para una solución en producción real, se recomendaría integrar un servicio de 
+almacenamiento externo como **Cloudinary** o **AWS S3**, que mantiene los 
+archivos disponibles de forma persistente independientemente del estado del 
+servidor web.
 
 \## 📸 Capturas de pantalla
 
