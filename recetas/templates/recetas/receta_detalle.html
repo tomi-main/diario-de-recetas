@@ -4,8 +4,8 @@
     <div class="col-md-8">
         <div class="card p-4">
             <h2>{{ receta.titulo }}</h2>
-            <p class="text-muted">Por {{ receta.autor.username }} · {{ receta.categoria }} · {{
-                receta.tiempo_preparacion }} min · {{ receta.porciones }} porciones</p>
+            <p class="text-muted">Por {{ receta.autor.username }} - {{ receta.categoria }} - {{ receta.porciones }}
+                porciones</p>
 
             {% if receta.imagen %}
             <img src="{{ receta.imagen.url }}" style="max-width:100%;border-radius:12px;" class="mb-3">
