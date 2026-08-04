@@ -15,8 +15,10 @@
                 {% if user.is_authenticated %}
                 <a class="btn btn-outline-light me-2" href="{% url 'crear_receta' %}">Nueva receta</a>
                 <a class="btn btn-outline-light me-2" href="{% url 'perfil' %}">Mi perfil ({{ user.username }})</a>
-                <a class="btn btn-outline-light" href="{% url 'logout' %}">Cerrar sesión</a>
-                {% else %}
+                <form method="post" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-light">Cerrar sesión</button>
+                </form> {% else %}
                 <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Iniciar sesión</a>
                 <a class="btn btn-light" href="{% url 'registro' %}">Registrarse</a>
                 {% endif %}
