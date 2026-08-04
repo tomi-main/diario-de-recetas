@@ -1,22 +1,29 @@
 {% extends 'recetas/base.html' %}
 {% block content %}
-<h2>{{ receta.titulo }}</h2>
-<p class="text-muted">Por {{ receta.autor.username }} · {{ receta.categoria }} · {{ receta.tiempo_preparacion }} min ·
-    {{ receta.porciones }} porciones</p>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4">
+            <h2>{{ receta.titulo }}</h2>
+            <p class="text-muted">Por {{ receta.autor.username }} · {{ receta.categoria }} · {{
+                receta.tiempo_preparacion }} min · {{ receta.porciones }} porciones</p>
 
-{% if receta.imagen %}
-<img src="{{ receta.imagen.url }}" style="max-width:400px;" class="mb-3 rounded">
-{% endif %}
+            {% if receta.imagen %}
+            <img src="{{ receta.imagen.url }}" style="max-width:100%;border-radius:12px;" class="mb-3">
+            {% endif %}
 
-<h4>Ingredientes</h4>
-<p style="white-space: pre-line;">{{ receta.ingredientes }}</p>
+            <h4>Ingredientes</h4>
+            <p style="white-space: pre-line;">{{ receta.ingredientes }}</p>
 
-<h4>Pasos</h4>
-<p style="white-space: pre-line;">{{ receta.pasos }}</p>
+            <h4>Pasos</h4>
+            <p style="white-space: pre-line;">{{ receta.pasos }}</p>
 
-{% if user.is_authenticated %}
-<a href="{% url 'toggle_favorito' receta.pk %}" class="btn btn-outline-danger">❤ Favorito</a>
-{% endif %}
-
-<a href="{% url 'home' %}" class="btn btn-secondary">Volver</a>
+            <div class="d-flex gap-2 mt-3">
+                {% if user.is_authenticated %}
+                <a href="{% url 'toggle_favorito' receta.pk %}" class="btn btn-outline-danger">❤ Favorito</a>
+                {% endif %}
+                <a href="{% url 'home' %}" class="btn btn-secondary">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

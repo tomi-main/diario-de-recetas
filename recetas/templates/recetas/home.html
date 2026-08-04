@@ -7,6 +7,11 @@
         <div class="card h-100">
             {% if receta.imagen %}
             <img src="{{ receta.imagen.url }}" class="card-img-top" style="height:200px;object-fit:cover;">
+            {% else %}
+            <div
+                style="height:200px;background-color:#e9ecef;display:flex;align-items:center;justify-content:center;color:#adb5bd;font-size:14px;">
+                Sin imagen
+            </div>
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ receta.titulo }}</h5>
