@@ -1,170 +1,94 @@
-\# 🍳 Diario de Recetas
-
-
+# 🍳 Diario de Recetas
 
 Aplicación web tipo blog desarrollada con Django, donde los usuarios pueden
-
 registrarse, crear su perfil y publicar recetas de cocina con ingredientes,
-
 pasos, tiempo de preparación y fotos.
 
+## 📌 Descripción del proyecto
 
-
-\## 📌 Descripción del proyecto
-
-
-
-\*\*Propósito:\*\* ofrecer un espacio colaborativo donde amantes de la cocina
-
+**Propósito:** ofrecer un espacio colaborativo donde amantes de la cocina
 puedan compartir y descubrir recetas caseras.
 
-
-
-\*\*Problema que resuelve:\*\* centraliza recetas personales que normalmente
-
+**Problema que resuelve:** centraliza recetas personales que normalmente
 están dispersas en cuadernos, notas o mensajes, y permite organizarlas por
-
 categoría y guardarlas como favoritas.
 
-
-
-\*\*Usuario objetivo:\*\* cualquier persona que quiera compartir sus recetas
-
+**Usuario objetivo:** cualquier persona que quiera compartir sus recetas
 o buscar inspiración para cocinar.
 
+## ⚙️ Funcionalidades principales
 
+- **Panel de administración (Django Admin):** gestión de recetas, categorías,
+  usuarios y perfiles desde `/admin/`.
+- **Registro y autenticación de usuarios:** los usuarios pueden crear una
+  cuenta, iniciar sesión y cerrar sesión. Al registrarse, se crea
+  automáticamente su perfil.
+- **Publicación de recetas:** los usuarios logueados pueden crear recetas
+  con título, categoría, ingredientes, pasos, tiempo de preparación,
+  porciones e imagen.
+- **Validación de formularios:** el título debe tener al menos 5 caracteres
+  y el tiempo de preparación debe ser mayor a 0.
+- **Sistema de favoritos:** los usuarios pueden marcar recetas como
+  favoritas y verlas en su perfil.
+- **Perfil de usuario:** cada usuario ve sus propias recetas publicadas
+  y sus favoritos.
 
-\## ⚙️ Funcionalidades principales
+## 🛠️ Tecnologías utilizadas
 
+- Python 3.14
+- Django 6.0.7
+- Pillow (manejo de imágenes)
+- Bootstrap 5 (estilos)
+- SQLite (base de datos en desarrollo) / PostgreSQL (producción)
+- Gunicorn + WhiteNoise (servidor de producción)
 
+## 🚀 Instrucciones para ejecutar el proyecto localmente
 
-\- \*\*Panel de administración (Django Admin):\*\* gestión de recetas, categorías,
+### Requisitos previos
+- Python 3.10 o superior instalado
+- pip
 
-&#x20; usuarios y perfiles desde `/admin/`.
+### Pasos
 
-\- \*\*Registro y autenticación de usuarios:\*\* los usuarios pueden crear una
+1. Clonar el repositorio:
+git clone https://github.com/tomi-main/diario-de-recetas.git
+cd diario-de-recetas
 
-&#x20; cuenta, iniciar sesión y cerrar sesión. Al registrarse, se crea
-
-&#x20; automáticamente su perfil.
-
-\- \*\*Publicación de recetas:\*\* los usuarios logueados pueden crear recetas
-
-&#x20; con título, categoría, ingredientes, pasos, tiempo de preparación,
-
-&#x20; porciones e imagen.
-
-\- \*\*Validación de formularios:\*\* el título debe tener al menos 5 caracteres
-
-&#x20; y el tiempo de preparación debe ser mayor a 0.
-
-\- \*\*Sistema de favoritos:\*\* los usuarios pueden marcar recetas como
-
-&#x20; favoritas y verlas en su perfil.
-
-\- \*\*Perfil de usuario:\*\* cada usuario ve sus propias recetas publicadas
-
-&#x20; y sus favoritos.
-
-
-
-\## 🛠️ Tecnologías utilizadas
-
-
-
-\- Python 3.14
-
-\- Django 6.0.7
-
-\- Pillow (manejo de imágenes)
-
-\- Bootstrap 5 (estilos)
-
-\- SQLite (base de datos en desarrollo)
-
-
-
-\## 🚀 Instrucciones para ejecutar el proyecto localmente
-
-
-
-\### Requisitos previos
-
-\- Python 3.10 o superior instalado
-
-\- pip
-
-
-
-\### Pasos
-
-
-
-1\. Clonar el repositorio:
-
-git clone <URL-del-repositorio>
-
-cd Python
-
-
-
-
-
-2\. Crear y activar un entorno virtual:
-
+2. Crear y activar un entorno virtual:
 python -m venv venv
-
-venv\\Scripts\\activate # En Windows
-
+venv\Scripts\activate # En Windows
 source venv/bin/activate # En Mac/Linux
 
-
-
-3\. Instalar las dependencias:
-
+3. Instalar las dependencias:
 pip install -r requirements.txt
 
-
-
-4\. Aplicar las migraciones:
-
+4. Aplicar las migraciones:
 python manage.py migrate
 
-
-
-5\. Crear un superusuario (para acceder al panel admin):
-
+5. Crear un superusuario (para acceder al panel admin):
 python manage.py createsuperuser
 
-
-
-6\. Ejecutar el servidor:
-
+6. Ejecutar el servidor:
 python manage.py runserver
 
+7. Abrir en el navegador:
+   - Sitio: `http://127.0.0.1:8000/`
+   - Panel admin: `http://127.0.0.1:8000/admin/`
 
+## 🌐 Despliegue
 
-7\. Abrir en el navegador:
+**URL pública:** https://diario-de-recetas.onrender.com
 
-&#x20;  - Sitio: `http://127.0.0.1:8000/`
+El proyecto está desplegado en **Render** (plan gratuito), con la 
+siguiente configuración:
 
-&#x20;  - Panel admin: `http://127.0.0.1:8000/admin/`
-
-
-
-\## 🌐 Despliegue
-
-
-
-\*(Completar con la URL pública si desplegaste el proyecto en Render, 
-
-Railway, PythonAnywhere, o con Ngrok. Si no lo desplegaste, explicá acá 
-
-cómo se haría — por ejemplo: "Se desplegaría en Render conectando el 
-
-repositorio de GitHub, configurando las variables de entorno DEBUG=False, 
-
-ALLOWED\_HOSTS y ejecutando collectstatic durante el build".)\*
+- Web Service conectado directamente al repositorio de GitHub (deploy 
+  automático con cada push a la rama `main`)
+- Base de datos PostgreSQL gratuita provista por Render
+- Gunicorn como servidor WSGI de producción
+- WhiteNoise para servir los archivos estáticos (CSS, JS)
+- Variables de entorno configuradas en Render: `SECRET_KEY`, `DEBUG=False`, 
+  `DATABASE_URL`
 
 ### ⚠️ Nota sobre las imágenes en producción
 
@@ -178,25 +102,13 @@ almacenamiento externo como **Cloudinary** o **AWS S3**, que mantiene los
 archivos disponibles de forma persistente independientemente del estado del 
 servidor web.
 
-\## 📸 Capturas de pantalla
+## 📸 Capturas de pantalla
 
+Las capturas de pantalla de todas las funcionalidades (panel admin, 
+registro, login, listado de recetas, detalle, formulario de creación y 
+perfil de usuario) están incluidas en la presentación de Google Slides 
+de la entrega.
 
+## 👤 Autor
 
-\*(Agregar acá capturas del panel admin, del registro, del listado de 
-
-recetas, del detalle de una receta y del formulario de creación.)\*
-
-
-
-\## 👤 Autor
-
-
-
-TOMAS MONTOBBIO
-
-
-
-
-
-
-
+Tomás Montobbio
