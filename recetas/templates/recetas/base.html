@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Diario de Recetas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,68 +17,119 @@
             font-family: 'Roboto', sans-serif;
         }
 
+        html,
         body {
-            background-color: #f7f8fa;
+            min-height: 100%;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0d0f14 0%, #1b2545 45%, #3571e6 100%);
+            background-attachment: fixed;
             color: var(--negro);
-        }
-
-        /* Formularios - layout moderno */
-        form p {
-            margin-bottom: 18px;
-        }
-
-        form label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #6b7280;
-            margin-bottom: 6px;
-        }
-
-        .form-control,
-        .form-select {
-            width: 100%;
-            padding: 12px 14px;
-            font-size: 15px;
-        }
-
-        input[type="file"].form-control {
-            padding: 8px 14px;
-        }
-
-        /* Ayuda/errores de Django */
-        .helptext {
-            display: block;
-            font-size: 12px;
-            color: #9ca3af;
-            margin-top: 4px;
-        }
-
-        ul.errorlist {
-            list-style: none;
-            padding: 0;
-            margin: 6px 0 0 0;
-            color: #dc2626;
-            font-size: 13px;
-        }
-
-        /* Card contenedor de formularios */
-        .card.p-4 {
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            border-radius: 18px;
         }
 
         /* Navbar */
         .navbar {
             background-color: var(--negro) !important;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
         }
 
         .navbar-brand {
             font-weight: 700;
             letter-spacing: 0.5px;
+        }
+
+        .navbar-user {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .navbar-user .greeting {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .navbar-user .logout-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .navbar-user .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Sidebar */
+        .app-sidebar {
+            position: fixed;
+            top: 110px;
+            left: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            z-index: 999;
+        }
+
+        .sidebar-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 78px;
+            padding: 12px 6px;
+            border-radius: 16px;
+            background: #fff;
+            color: var(--negro);
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .sidebar-btn:hover {
+            background: var(--azul);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .sidebar-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-text {
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.15;
+        }
+
+        .content-wrapper {
+            margin-left: 130px;
+        }
+
+        @media (max-width: 768px) {
+            .app-sidebar {
+                top: auto;
+                bottom: 16px;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+            }
+
+            .content-wrapper {
+                margin-left: 0 !important;
+                padding-bottom: 100px;
+            }
         }
 
         /* Botones */
@@ -128,14 +180,14 @@
         .card {
             border: none;
             border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
         }
 
         .card-img-top {
@@ -154,8 +206,25 @@
         }
 
         /* Formularios */
+        form p {
+            margin-bottom: 18px;
+        }
+
+        form label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
         .form-control,
         .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
             border-radius: 10px;
             border-color: #dcdfe4;
         }
@@ -166,12 +235,36 @@
             box-shadow: 0 0 0 3px rgba(53, 113, 230, 0.15);
         }
 
+        input[type="file"].form-control {
+            padding: 8px 14px;
+        }
+
+        .helptext {
+            display: block;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        ul.errorlist {
+            list-style: none;
+            padding: 0;
+            margin: 6px 0 0 0;
+            color: #dc2626;
+            font-size: 13px;
+        }
+
+        .card.p-4 {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+            border-radius: 18px;
+        }
+
         /* Listas (perfil) */
         .list-group-item {
             border: none;
             border-radius: 10px !important;
             margin-bottom: 8px;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -180,14 +273,17 @@
     <nav class="navbar navbar-expand-lg navbar-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">Diario de Recetas</a>
-            <div class="d-flex">
+            <div class="d-flex align-items-center">
                 {% if user.is_authenticated %}
-                <a class="btn btn-outline-light me-2" href="{% url 'crear_receta' %}">Nueva receta</a>
-                <a class="btn btn-outline-light me-2" href="{% url 'perfil' %}">Mi perfil ({{ user.username }})</a>
-                <form method="post" action="{% url 'logout' %}" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-light">Cerrar sesión</button>
-                </form>
+                <div class="navbar-user">
+                    <span class="greeting">👋 Hola, {{ user.username }}</span>
+                    <form method="post" action="{% url 'logout' %}" class="d-inline m-0">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn" title="Cerrar sesión">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
                 {% else %}
                 <a class="btn btn-outline-light me-2" href="{% url 'login' %}">Iniciar sesión</a>
                 <a class="btn btn-light" href="{% url 'registro' %}">Registrarse</a>
@@ -196,7 +292,20 @@
         </div>
     </nav>
 
-    <div class="container">
+    {% if user.is_authenticated %}
+    <div class="app-sidebar">
+        <a href="{% url 'crear_receta' %}" class="sidebar-btn" title="Nueva receta">
+            <span class="sidebar-icon"><i class="bi bi-plus-lg"></i></span>
+            <span class="sidebar-text">Nueva receta</span>
+        </a>
+        <a href="{% url 'perfil' %}" class="sidebar-btn" title="Mi perfil y favoritos">
+            <span class="sidebar-icon"><i class="bi bi-heart-fill"></i></span>
+            <span class="sidebar-text">Favoritos</span>
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="container content-wrapper">
         {% block content %}
         {% endblock %}
     </div>
